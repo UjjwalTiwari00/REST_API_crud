@@ -13,7 +13,8 @@ app.get("/", (req, res) => {
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
-// we will handle post req
+// handle post request for storing data in database
+ 
 app.post("/mens",async (req,res)=>{
     try{
         const addingMensRecords=new MenRanking(req.body)
@@ -26,17 +27,17 @@ app.post("/mens",async (req,res)=>{
     }
 })
 
-// we will handle get req
+// handle get request for showing data 
 app.get("/mens",async (req,res)=>{
 
-     
+
       const getMens=await MensRanking.find({}).sort({"ranking":1});
       console.log(getMens);
       console.log("test");
       res.send(getMens);
-  
+
 })
-// we will handle get req of individual
+// handle get request for showing individual data 
 app.get("/mens/:id",async (req,res)=>{
 
      const _id=req.params.id;
@@ -45,7 +46,7 @@ app.get("/mens/:id",async (req,res)=>{
     console.log("test");
     res.send(getMens);
 })
-// we will handle patch req of individual
+// handle patch request for altering data 
 app.patch("/mens/:id",async(req,res)=>{
     try{
         const _id=req.params.id;
@@ -56,7 +57,7 @@ app.patch("/mens/:id",async(req,res)=>{
         res.status(500).send(e);
     }
 })
-// we will delete record 
+// handle delete request to delete data 
 app.delete("/mens/:id",async(req,res)=>{
     try{
         const _id=req.params.id;
